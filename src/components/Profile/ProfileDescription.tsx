@@ -1,9 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
+import { Profile } from './Profile';
+import * as ProfileServices from './ProfileServices';
 
-function Profile({data}) {
+function ProfileDescription({ }) {
 
-  const { username } = data; 
+
+
+  const initialState = {
+    bio: '',
+    avatar_url: '',
+    name: '',
+    repos_url: '',
+  }
+
+
+  const [user, setUser] = useState<Profile>(initialState)
+
+  const getUser = async (username: string) => {
+    const res = await ProfileServices.getUser(username);
+    const {bio, avatar_url, name, repos_url} = res.data;
+    setUser({bio, avatar_url, name, repos_url});
+    return;
+  }
+
+
 
 
   const ContainerProfile = styled.div`
@@ -48,19 +69,22 @@ function Profile({data}) {
 
   return (
     <ContainerProfile>
-      <Name>{username}</Name>
+      <Name>{user.name}</Name>
       <ContainerRow>
       <HalfContainer>
-        <Avatar />
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis, incidunt earum! Ullam sed quisquam consequuntur id maxime enim saepe, earum labore eaque non modi, reiciendis animi, accusantium iure velit! Accusamus.</p>
+        <Avatar src={user.avatar_url} />
+        <p>{user.bio}</p>
       </HalfContainer>
       <HalfContainer>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis deserunt deleniti alias commodi accusamus laudantium dicta hic placeat velit numquam ex facilis aspernatur, sequi, nostrum delectus! Ab neque quasi velit!</p>
+        <p>{user.repos_url}</p>
       </HalfContainer>
       </ContainerRow>
+      
+      <button onClick={() => getUser('AlanGaia')
+      }>Get the user</button>
       
     </ContainerProfile>
   )
 }
 
-export default Profile
+export default ProfileDescription

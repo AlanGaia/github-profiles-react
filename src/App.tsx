@@ -1,19 +1,17 @@
 import React, { Fragment } from 'react';
 import Header from './components/header/Header';
-import Profile from './components/Profile/Profile';
+import ProfileDescription from './components/Profile/ProfileDescription';
 import Search from './components/search/Search';
 
 function App() {
 
-  const data = {
-    username: 'Alan Gaia'
-  }
+  // const username = 'AlanGaia'
 
   return (
     <Fragment>
       <Header />
       <Search />
-      <Profile data={data} />
+      <ProfileDescription />
     </Fragment>
   );
 }

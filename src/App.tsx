@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Header from './components/header/Header';
+import Profile from './components/Profile/Profile';
+import Search from './components/search/Search';
 
 function App() {
+
+  const data = {
+    username: 'Alan Gaia'
+  }
+
   return (
-    <h1>Hola mundo</h1>
+    <Fragment>
+      <Header />
+      <Search />
+      <Profile data={data} />
+    </Fragment>
   );
 }
 

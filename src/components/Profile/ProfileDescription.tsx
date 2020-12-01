@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
 import { Profile } from './Profile';
 import * as ProfileServices from './ProfileServices';
@@ -15,18 +15,29 @@ function ProfileDescription({ }) {
     avatar_url: '',
     name: '',
     repos_url: '',
+    followers: 0,
+    following: 0,
+    public_repos: 0,
+    repos: [],
   }
 
+  const [repositories, setRepositories] = useState([]);
 
   const [user, setUser] = useState<Profile>(initialState)
 
   const getUser = async (username: string) => {
     const res = await ProfileServices.getUser(username);
-    const {bio, avatar_url, name, repos_url} = res.data;
-    setUser({bio, avatar_url, name, repos_url});
+    const {bio, avatar_url, name, repos_url, followers, following, public_repos} = res.data;
+    const repos = await (await ProfileServices.getRepos(repos_url)).data;
+        
+    setUser({bio, avatar_url, name, repos_url, followers, following, public_repos, repos});
+
     return;
   }
 
+  useEffect(() => {
+    getUser(username);
+  }, [username]);
 
 
   const Subtitles = styled.h3`
@@ -73,8 +84,6 @@ function ProfileDescription({ }) {
   `;
   
 
-
-
   const Avatar = styled.img`
     vertical-align: middle;
     width: 150px;
@@ -93,19 +102,16 @@ function ProfileDescription({ }) {
       </HalfContainer>
       <Subtitles>My repos</Subtitles>
       <HalfContainer>
+        <ul>
         {
-          (user.repos_url) ?
-          <button>Get the repos</button> :
-          null
+          user.repos.map( repo => {
+          return  <li>{repo.name}</li>
+          })
         }
-        <p>{user.repos_url}</p>
+        </ul>
       </HalfContainer>
       </ContainerRow>
-
-      <input type="text" value={username}/>
       
-      <button onClick={() => getUser('AlanGaia')
-      }>Get the user</button>
       
     </ContainerProfile>
   )

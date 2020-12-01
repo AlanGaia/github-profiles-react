@@ -90,6 +90,27 @@ function ProfileDescription({ }) {
     border-radius: 50%;
   `;
 
+  const UnorderedList = styled.ul`
+    list-style: none;
+  `;
+
+  const ListItem = styled.li`
+  display: inline-block;
+  margin: 10px;
+  background: #0abd9c;
+  padding: 10px;
+  border-radius: 10px;
+
+    :hover {
+    background: #07f8cc;
+    cursor: pointer;
+    }
+  `;
+
+  const LinkToRepo = styled.a`
+    text-decoration:none;
+    color: inherit;
+  `;
 
   return (
     <ContainerProfile>
@@ -102,13 +123,13 @@ function ProfileDescription({ }) {
       </HalfContainer>
       <Subtitles>My repos</Subtitles>
       <HalfContainer>
-        <ul>
+        <UnorderedList>
         {
           user.repos.map( repo => {
-          return  <li>{repo.name}</li>
+          return  <ListItem  ><LinkToRepo target="_blank" href={repo.html_url}>{repo.name}{repo.language}</LinkToRepo></ListItem>
           })
         }
-        </ul>
+        </UnorderedList>
       </HalfContainer>
       </ContainerRow>
       

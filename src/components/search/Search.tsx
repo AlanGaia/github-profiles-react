@@ -1,15 +1,31 @@
-import React, { FormEvent, useEffect } from 'react'
+import React, { useState } from 'react'
 import {SearchProps} from './SearchProps'
 
 const Search: React.FC<SearchProps> = ({ setUsername }) => {
 
-useEffect(() => setUsername('agusahumada'), [])
+  const [data, setData] = useState({searchValue:''});
+
+  const {searchValue} = data;
+
+  const handleSubmit = e  => {
+    e.preventDefault();
+    console.log(e);
+  }
+
+  //Handle input Search value
+  const handleChange = e => {
+    setData({
+      ...data,
+      [e.target.name] : e.target.value
+    });
+  }
+
 
   return (
     <div>
-      <form>
-        <input type="text" value="AlanGaia" name="search"/>
-        <button >Search</button>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={searchValue} onChange={handleChange} name="searchValue"/>
+        <button type="submit" >Search</button>
       </form>
     </div>
   )

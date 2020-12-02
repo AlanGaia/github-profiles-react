@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { FormEvent, useEffect } from 'react'
+import {SearchProps} from './SearchProps'
 
-function Search() {
+const Search: React.FC<SearchProps> = ({ setUsername }) => {
+
+useEffect(() => setUsername('agusahumada'), [])
+
   return (
     <div>
-      Search compoonent
+      <form>
+        <input type="text" value="AlanGaia" name="search"/>
+        <button >Search</button>
+      </form>
     </div>
   )
 }

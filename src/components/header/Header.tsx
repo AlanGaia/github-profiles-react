@@ -2,9 +2,11 @@ import React from 'react'
 
 function Header() {
   return (
-    <div>
-      Header Comp
-    </div>
+    <header>
+      <nav>
+      <h1>Github Profiles</h1>
+      </nav>
+    </header>
   )
 }
 

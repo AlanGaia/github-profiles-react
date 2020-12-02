@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components';
-import { Profile } from './Profile';
+import { Profile, ProfileProps } from './Profile';
 import * as ProfileServices from './ProfileServices';
 
-function ProfileDescription({ }) {
 
 
-  let username = 'AlanGaia';
+const ProfileDescription: React.FC<ProfileProps> = ({ username }) => {
+
+
 
 
 
@@ -21,7 +22,6 @@ function ProfileDescription({ }) {
     repos: [],
   }
 
-  const [repositories, setRepositories] = useState([]);
 
   const [user, setUser] = useState<Profile>(initialState)
 
@@ -56,6 +56,13 @@ function ProfileDescription({ }) {
     max-width: 800px;
     flex-wrap: wrap;
     margin: 1rem auto;
+  `;
+
+  const Bio = styled.p`
+    text-align: center;
+    font-size: 1.4rem;
+    border-radius: 8px;
+    padding: .5rem;
   `;
 
   const ContainerRow = styled.div`
@@ -97,12 +104,12 @@ function ProfileDescription({ }) {
   const ListItem = styled.li`
   display: inline-block;
   margin: 10px;
-  background: #0abd9c;
+  background: #3c8a938a;
   padding: 10px;
   border-radius: 10px;
 
     :hover {
-    background: #07f8cc;
+    background: #008cff;
     cursor: pointer;
     }
   `;
@@ -114,19 +121,31 @@ function ProfileDescription({ }) {
 
   return (
     <ContainerProfile>
-      <Name>{user.name}</Name>
       <ContainerRow>
       <Subtitles>About</Subtitles>
       <HalfContainer>
         <Avatar src={user.avatar_url} />
-        <p>{user.bio}</p>
+      <ContainerRow>
+      <Name>{user.name}</Name>
+      <Bio>{user.bio}</Bio>
+        <UnorderedList>
+          <ListItem>Followers: <b>{user.followers}</b></ListItem>
+          <ListItem>Following: <b>{user.following}</b></ListItem>
+          <ListItem>Repositories: <b>{user.public_repos}</b></ListItem>
+        </UnorderedList>
+      </ContainerRow>
+
       </HalfContainer>
       <Subtitles>My repos</Subtitles>
       <HalfContainer>
         <UnorderedList>
         {
           user.repos.map( repo => {
-          return  <ListItem  ><LinkToRepo target="_blank" href={repo.html_url}>{repo.name}{repo.language}</LinkToRepo></ListItem>
+          return <ListItem  >
+                  <LinkToRepo target="_blank" href={repo.html_url}>
+                    {repo.name}
+                  </LinkToRepo>
+                </ListItem>
           })
         }
         </UnorderedList>

@@ -8,3 +8,7 @@ export interface Profile {
   public_repos: number;
   repos: Array<any>;
 }
+
+export interface ProfileProps {
+  username: string,
+}

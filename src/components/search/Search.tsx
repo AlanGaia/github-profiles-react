@@ -9,10 +9,10 @@ const Search: React.FC<SearchProps> = ({ setUsername }) => {
 
   const handleSubmit = e  => {
     e.preventDefault();
-    console.log(e);
+    setUsername(searchValue);    
   }
 
-  //Handle input Search value
+  //Handle change Search input value
   const handleChange = e => {
     setData({
       ...data,

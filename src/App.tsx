@@ -40,7 +40,12 @@ const ContainerProfile = styled.div`
           <Search setUsername={setUsername} />
         </ContainerProfile>
         :
-        <ProfileDescription  username={username} />
+        <ContainerProfile>
+          <Subtitles>Search another user from Github</Subtitles>
+          <Search setUsername={setUsername} />
+          <ProfileDescription  username={username} />
+        </ContainerProfile>
+        
       }
     </Fragment>
   );

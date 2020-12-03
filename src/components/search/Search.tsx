@@ -4,7 +4,6 @@ import {SearchProps} from './SearchProps'
 const Search: React.FC<SearchProps> = ({ setUsername }) => {
 
   const [data, setData] = useState({searchValue:''});
-
   const {searchValue} = data;
 
   const handleSubmit = e  => {
